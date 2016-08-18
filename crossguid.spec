@@ -62,9 +62,4 @@ cp %{SOURCE1} Makefile
 	LIBDIR=%{_libdir}
 
 
-%changelog
-
-* Mon Feb 22 2016 Rosa <rosa@abf.rosalinux.ru> 0-0.20150804.1
-- (bf2e817) Automatic import for version 0-0.20150804.1
-
 
