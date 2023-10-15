@@ -6,8 +6,8 @@
 
 Summary:	Lightweight cross platform C++ GUID/UUID library
 Name:		crossguid
-Version:	0
-Release:	0.%{git}.1
+Version:	0.2.3.20211002
+Release:	0.%{git}1
 License:	MIT
 Group:		System/Libraries
 Url:		https://github.com/graeme-hill/crossguid
