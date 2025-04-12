@@ -1,0 +1,25 @@
+diff -up crossguid-master/CMakeLists.txt.omv~ crossguid-master/CMakeLists.txt
+--- crossguid-master/CMakeLists.txt.omv~	2025-04-12 03:14:14.468949754 +0200
++++ crossguid-master/CMakeLists.txt	2025-04-12 03:14:52.640824041 +0200
+@@ -14,8 +14,8 @@ if(NOT CMAKE_BUILD_TYPE)
+     set(CMAKE_BUILD_TYPE "Release")
+ endif()
+ 
+-add_library(crossguid ${CMAKE_CURRENT_SOURCE_DIR}/src/guid.cpp)
+-set_property(TARGET crossguid PROPERTY POSITION_INDEPENDENT_CODE ON)
++add_library(crossguid SHARED ${CMAKE_CURRENT_SOURCE_DIR}/src/guid.cpp)
++set_property(TARGET crossguid PROPERTY POSITION_INDEPENDENT_CODE ON VERSION 0.0 SOVERSION 0)
+ target_include_directories(crossguid PUBLIC
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+     $<INSTALL_INTERFACE:include>)
+diff -up crossguid-master/include/crossguid/guid.hpp.omv~ crossguid-master/include/crossguid/guid.hpp
+--- crossguid-master/include/crossguid/guid.hpp.omv~	2025-04-12 03:13:35.030432629 +0200
++++ crossguid-master/include/crossguid/guid.hpp	2025-04-12 03:13:46.804243098 +0200
+@@ -36,6 +36,7 @@ THE SOFTWARE.
+ #include <string_view>
+ #include <utility>
+ #include <iomanip>
++#include <cstdint>
+ 
+ #define BEGIN_XG_NAMESPACE namespace xg {
+ #define END_XG_NAMESPACE }

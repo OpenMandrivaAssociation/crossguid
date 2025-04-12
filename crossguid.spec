@@ -1,19 +1,21 @@
-%define git 20150804
-
 %define major 0
-%define libname %mklibname %{name} %{major}
+%define oldlibname %mklibname %{name} %{major}
+%define libname %mklibname %{name}
 %define devname %mklibname %{name} -d
 
 Summary:	Lightweight cross platform C++ GUID/UUID library
 Name:		crossguid
-Version:	0.2.3.20211002
-Release:	0.%{git}1
+Version:	0.2.3~20190529
+Release:	1
 License:	MIT
 Group:		System/Libraries
 Url:		https://github.com/graeme-hill/crossguid
-Source0:	%{name}-%{git}.tar.bz2
-Source1:	Makefile.crossguid
+Source0:	https://github.com/graeme-hill/crossguid/archive/refs/heads/master.tar.gz
+BuildSystem:	cmake
 BuildRequires:	pkgconfig(uuid)
+
+%patchlist
+crossguid-shared.patch
 
 %description
 CrossGuid is a minimal, cross platform, C++ GUID library. It uses the best
@@ -25,6 +27,8 @@ for parsing, stringifying, and comparing IDs.
 %package -n %{libname}
 Summary:	Shared library for lightweight cross platform C++ GUID/UUID library
 Group:		System/Libraries
+# Renamed before OM 6.0 2025/04/12
+%rename %{oldlibname}
 
 %description -n %{libname}
 Shared library for lightweight cross platform C++ GUID/UUID library.
@@ -44,22 +48,12 @@ Provides:	%{name}-devel = %{EVRD}
 Development files for lightweight cross platform C++ GUID/UUID library.
 
 %files -n %{devname}
+%{_includedir}/crossguid
 %{_includedir}/guid.h
 %{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/crossguid.pc
+%{_datadir}/crossguid
 
-#----------------------------------------------------------------------------
-
-%prep
-%setup -qn %{name}-%{git}
-cp %{SOURCE1} Makefile
-
-%build
-%setup_compile_flags
-%make
-
-%install
-%makeinstall_std \
-	LIBDIR=%{_libdir}
-
-
-
+%install -a
+# For compatibility with Makefile from previous version
+ln -s crossguid/guid.hpp %{buildroot}%{_includedir}/guid.h
